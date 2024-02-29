@@ -133,7 +133,11 @@ def upload_file():
     if os.path.exists(f"{temp_dir}/{chunk.filename}"):
         os.remove(f"{temp_dir}/{chunk.filename}")
 
-    chunk.save(f"{temp_dir}/{chunk.filename}.{chunk_id}")
+    file_path = f"{temp_dir}/{chunk.filename}.{chunk_id}"
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
+    chunk.save(file_path)
 
     saved_chunks = os.listdir(temp_dir)
     received_chunk_size = 0
